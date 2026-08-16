@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Focusora",
+  "version": "1.0",
+  "description": "All-in-one productivity extension with Notion, Spotify, and distraction blocking.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "images/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://api.notion.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+  
+
+}
+
