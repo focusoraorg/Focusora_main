@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusora for Institutions - B2B Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="b2b.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="logo.png" alt="Focusora Logo" class="logo-img">
+            </a>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="b2b.html" class="active">For Institutions</a></li>
+            </ul>
+        </nav>
+        <button class="login-btn">
+            <img src="google-icon.png" alt="Google" class="google-icon">
+            Login
+        </button>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="b2b.html">For Institutions</a></li>
+            </ul>
+            <button class="login-btn mobile-login">
+                <img src="google-icon.png" alt="Google" class="google-icon">
+                Login
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="b2b-hero">
+        <div class="b2b-hero-content">
+            <h1>Boost Student Productivity with <span class="highlight">Focusora</span> for Institutions</h1>
+            <p>Empower your learners with gamified focus tools, distraction blockers, and real-time insights.</p>
+            <div class="b2b-hero-buttons">
+                <button class="cta-button">Schedule a Demo</button>
+                <button class="secondary-button">Start Free B2B Trial</button>
+            </div>
+            <div class="trust-badges">
+                <span><i class="fas fa-check-circle"></i> Loved by 2000+ learners</span>
+                <span><i class="fas fa-award"></i> GDG Wow 2025</span>
+                <span><i class="fas fa-shield-alt"></i> GDPR Compliant</span>
+            </div>
+        </div>
+        <div class="b2b-hero-image">
+            <img src="focus-illustration.png" alt="Focusora for Institutions">
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="b2b-benefits">
+        <h2>Why Focusora for Institutions?</h2>
+        <div class="benefits-container">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Admin Dashboard</h3>
+                <p>Monitor student focus sessions, XP, and engagement with comprehensive analytics.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Custom Branding</h3>
+                <p>White-labeled version with your institution's colors, logo, and messaging.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Progress Reports</h3>
+                <p>Exportable reports for attendance, performance, and focus metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="b2b-contact" id="b2b-contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p>Fill out the form and our team will get back to you within 24 hours.</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>b2b@focusora.com</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 9848790790</span>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>ChennaiS, India</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-container">
+                <form class="b2b-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="institution">Institution Name</label>
+                            <input type="text" id="institution" placeholder="Your institution" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" placeholder="Your phone number" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="students">Number of Students</label>
+                        <select id="students" required>
+                            <option value="" disabled selected>Select range</option>
+                            <option value="1-50">1-50 students</option>
+                            <option value="51-200">51-200 students</option>
+                            <option value="201-500">201-500 students</option>
+                            <option value="501-1000">501-1000 students</option>
+                            <option value="1000+">1000+ students</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Requirements</label>
+                        <textarea id="message" rows="4" placeholder="Tell us about your requirements"></textarea>
+                    </div>
+                    <button type="submit" class="b2b-submit-btn">Submit Inquiry</button>
+                    <button type="button" class="b2b-contact-sales">Contact Sales Team</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="b2b-pricing">
+        <h2>Institutional Plans</h2>
+        <div class="b2b-pricing-container">
+            <div class="b2b-pricing-card">
+                <h3>Standard Plan</h3>
+                <div class="b2b-price">₹25 <span>/ student / month</span></div>
+                <p class="b2b-billing">Annual billing (minimum 20 students)</p>
+                <ul>
+                    <li>Admin Dashboard</li>
+                    <li>Focus Analytics</li>
+                    <li>Distraction Blocker</li>
+                    <li>Pomodoro Timer</li>
+                    <li>Basic Reports</li>
+                </ul>
+                <div class="b2b-volume-discount">
+                    <p><strong>Volume Discounts:</strong></p>
+                    <p>100+ students: 10% off</p>
+                    <p>500+ students: 15% off</p>
+                    <p>1000+ students: 20% off</p>
+                </div>
+                <button class="b2b-pricing-btn">Get Started</button>
+            </div>
+            <div class="b2b-pricing-card featured">
+                <div class="featured-tag">Popular</div>
+                <h3>Premium Plan</h3>
+                <div class="b2b-price">₹40 <span>/ student / month</span></div>
+                <p class="b2b-billing">Annual billing (minimum 20 students)</p>
+                <ul>
+                    <li>Everything in Standard</li>
+                    <li>Custom Branding</li>
+                    <li>Advanced Analytics</li>
+                    <li>API Access</li>
+                    <li>Priority Support</li>
+                    <li>Advanced Reports</li>
+                </ul>
+                <div class="b2b-volume-discount">
+                    <p><strong>Volume Discounts:</strong></p>
+                    <p>100+ students: 10% off</p>
+                    <p>500+ students: 15% off</p>
+                    <p>1000+ students: 25% off</p>
+                </div>
+                <button class="b2b-pricing-btn featured">Get Started</button>
+            </div>
+            <div class="b2b-custom-pricing">
+                <h3>Need a Custom Solution?</h3>
+                <p>We offer tailored plans for institutions with specific requirements or large student bodies.</p>
+                <button class="b2b-custom-btn">Request Custom Pricing</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="coming-soon">
+        <div class="coming-soon-content">
+            <h2>Coming Soon to Mobile</h2>
+            <p>Soon available on Android & iOS for seamless cross-device focus management.</p>
+            <div class="app-badges">
+                <div class="app-badge">
+                    <i class="fab fa-apple"></i>
+                    <span>iOS App</span>
+                </div>
+                <div class="app-badge">
+                    <i class="fab fa-android"></i>
+                    <span>Android App</span>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-mockup">
+            <i class="fas fa-mobile-alt"></i>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Focusora Logo" class="footer-logo-img">
+                <p>Boost your productivity and focus with our powerful Chrome extension.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Updates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Focusora. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+
+<script src="firebase-config.js"></script> <!-- 🔑 Your shared config -->
+<script src="page-specific.js"></script>   <!-- e.g., dashboard.js -->
+</body>
+</html>

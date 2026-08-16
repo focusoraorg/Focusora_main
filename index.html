@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Focusora - Boost Your Productivity</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="logo-container">
+      <img src="logo.png" alt="Focusora Logo" class="logo-img" />
+    </div>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="b2b.html">For Institutions</a></li>
+        <li>
+          <button class="contact-b2b-btn" onclick="window.location.href='b2b.html#b2b-contact'">
+            <i class="fas fa-building"></i>
+            Contact Us for B2B
+          </button>
+        </li>
+        <li>
+          <!-- 🔑 Google Login -->
+          <button id="google-login" class="login-btn">
+            <img src="google-icon.png" alt="Google" class="google-icon" />
+            Login with Google
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="b2b.html">For Institutions</a></li>
+      <li>
+        <button class="contact-b2b-btn" onclick="window.location.href='b2b.html#b2b-contact'">
+          <i class="fas fa-building"></i>
+          Contact Us for B2B
+        </button>
+      </li>
+      <li>
+        <!-- 🔑 Google Login (Mobile) -->
+        <button id="google-login-mobile" class="login-btn mobile-login">
+          <img src="google-icon.png" alt="Google" class="google-icon" />
+          Login with Google
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Boost your <span class="highlight">Focus</span>.<br>Track your <span class="highlight">Progress</span>.</h1>
+      <p>One extension to manage time, stay focused, and level up your productivity.</p>
+      <div class="hero-buttons">
+        <button class="cta-button">Add to Chrome</button>
+        <button class="secondary-button" onclick="window.location.href='#pricing'">View Plans</button>
+      </div>
+      <div class="mobile-notice">
+        <p><i class="fas fa-mobile-alt"></i> 📱 Focusora mobile app is launching soon!</p>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="focus-illustration.png" alt="Focus Illustration">
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2>Why Focusora?</h2>
+    <div class="feature-boxes">
+      <div class="feature">
+        <img src="pomodoro.png" alt="Pomodoro">
+        <h3>Pomodoro Sessions</h3>
+        <p>Stay focused with Pomodoro timers and breaks.</p>
+      </div>
+      <div class="feature">
+        <img src="xp.png" alt="XP System">
+        <h3>Gamified XP</h3>
+        <p>Earn XP and unlock rewards for studying.</p>
+      </div>
+      <div class="feature">
+        <img src="blocker.png" alt="Distraction Blocker">
+        <h3>Block Distractions</h3>
+        <p>Auto-block time-wasting websites during sessions.</p>
+      </div>
+      <div class="feature">
+        <img src="spotify.png" alt="Notion Integration">
+        <h3>Notion Integration</h3>
+        <p>Sync your tasks with Notion for seamless workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-container">
+      <!-- Keep all testimonials as before -->
+      <div class="testimonial">
+        <div class="testimonial-content">
+          <p>"Focusora has completely transformed how I study. The Pomodoro timer and XP system keep me motivated!"</p>
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+          <div>
+            <h4>Sarah Johnson</h4>
+            <p>Computer Science Student</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-content">
+          <p>"The distraction blocker is a game-changer. I've doubled my productivity since using Focusora."</p>
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="User">
+          <div>
+            <h4>Michael Chen</h4>
+            <p>Medical Student</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-content">
+          <p>"I love how Focusora integrates with Notion. It's now an essential part of my daily workflow."</p>
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+          <div>
+            <h4>Emily Rodriguez</h4>
+            <p>Freelance Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <h2>Simple Pricing</h2>
+    <div class="pricing-container">
+      <div class="pricing-card">
+        <h3>Free</h3>
+        <p class="price">₹0</p>
+        <ul>
+          <li>Basic Pomodoro Timer</li>
+          <li>Limited XP System</li>
+          <li>Basic Website Blocking</li>
+          <li>7-Day History</li>
+        </ul>
+        <button class="pricing-btn">Get Started</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Monthly</h3>
+        <p class="price">₹49<span>/month</span></p>
+        <ul>
+          <li>Advanced Pomodoro Customization</li>
+          <li>Full XP and Rewards System</li>
+          <li>Advanced Distraction Blocking</li>
+          <li>Notion & Spotify Integration</li>
+          <li>Unlimited History</li>
+          <li>Priority Support</li>
+        </ul>
+        <button class="pricing-btn">Subscribe Now</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="featured-tag">Best Value</div>
+        <h3>Yearly</h3>
+        <p class="price">₹500<span>/year</span></p>
+        <p class="savings">Save ₹88 yearly</p>
+        <ul>
+          <li>All Monthly Features</li>
+          <li>Exclusive Yearly Rewards</li>
+          <li>Early Access to New Features</li>
+          <li>Team Collaboration Tools</li>
+        </ul>
+        <button class="pricing-btn featured-btn">Subscribe Now</button>
+      </div>
+    </div>
+    <div class="b2b-section">
+      <h3>Looking for a team or institution plan?</h3>
+      <p>We offer special pricing for educational institutions and teams.</p>
+      <button class="b2b-btn">Contact Us for B2B Pricing</button>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to boost your productivity?</h2>
+      <p>Join thousands of students and professionals who have transformed their work habits with Focusora.</p>
+      <button class="cta-button large">Add to Chrome</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Focusora Logo" class="footer-logo-img" />
+        <p>© 2023 Focusora. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#">Roadmap</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Made with ❤️ for students and professionals</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('.mobile-menu').classList.toggle('active');
+    });
+
+    // Close mobile menu on click
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelector('.mobile-menu').classList.remove('active');
+      });
+    });
+  </script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+
+  <!-- 🔑 Your Firebase config -->
+  <script src="firebase-config.js"></script>
+
+  <script>
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // Desktop login
+    document.getElementById('google-login').addEventListener('click', () => {
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("User signed in:", result.user);
+          window.location.href = "dashboard.html";
+        })
+        .catch(error => alert("Login failed: " + error.message));
+    });
+
+    // Mobile login
+    document.getElementById('google-login-mobile').addEventListener('click', () => {
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("User signed in:", result.user);
+          window.location.href = "dashboard.html";
+        })
+        .catch(error => alert("Login failed: " + error.message));
+    });
+  </script>
+</body>
+</html>
