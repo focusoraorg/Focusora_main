@@ -1,5 +1,16 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
 # Firebase config — NEVER commit real credentials to git
 firebase/firebase-config.js
+
+# Dependencies and build outputs
+node_modules/
+dist/
+.vite/
 
 # OS files
 .DS_Store
