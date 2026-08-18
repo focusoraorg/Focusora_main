@@ -7,13 +7,12 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyD7i7trh0jlad9HrymtFaf52MgzDvSlPgc",
-  authDomain: "focusora-9c626.firebaseapp.com",
-  projectId: "focusora-9c626",
-  storageBucket: "focusora-9c626.firebasestorage.app",
-  messagingSenderId: "333021061664",
-  appId: "1:333021061664:web:eb159249689285ff27d245",
-  measurementId: "G-CXCC9BWY0M"
+  apiKey: import.meta.env?.VITE_FIREBASE_API_KEY || "",
+  authDomain: import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN || "focusora-ca5a8.firebaseapp.com",
+  projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID || "focusora-ca5a8",
+  storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET || "focusora-ca5a8.firebasestorage.app",
+  messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "29212107881",
+  appId: import.meta.env?.VITE_FIREBASE_APP_ID || "1:29212107881:web:f554b729212667d8a96ef8"
 };
 
 // Initialize Firebase
