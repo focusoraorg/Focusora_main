@@ -25,7 +25,7 @@
         <button class="nav-item" data-section="focus">Focus &amp; blocking</button>
         <button class="nav-item" data-section="tasks">Tasks &amp; Notion</button>
         <button class="nav-item" data-section="achievements">Achievements</button>
-        <button class="nav-item" data-section="account">Account &amp; plan</button>
+        <button class="nav-item" data-section="account">Profile &amp; account</button>
         <button class="nav-item" data-section="privacy">Privacy &amp; data</button>
         <button class="nav-item" data-section="about">About</button>
       </nav>
@@ -187,46 +187,104 @@
         </div>
       </section>
 
-      <!-- ══════════ ACCOUNT & PLAN ══════════ -->
+      <!-- ══════════ PROFILE & ACCOUNT ══════════ -->
       <section id="section-account" class="panel" hidden>
-        <h1>Account &amp; plan</h1>
+        <h1>Profile &amp; Account</h1>
+        <p class="lede">Manage your Focusora profile, cloud synchronization, and subscription.</p>
 
-        <div class="card">
-          <h3>Account &amp; Cloud Sync</h3>
-          <div id="account-signed-out">
-            <p class="muted small" style="margin-bottom:12px">Sign in to sync focus sessions, tasks, XP, and streak across devices.</p>
-            <button class="btn secondary" id="btn-google-login">
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" width="16" style="vertical-align:middle;margin-right:6px" />
+        <!-- Signed out state -->
+        <div class="card" id="account-signed-out">
+          <div class="auth-promo-box">
+            <div class="auth-promo-icon">☁️</div>
+            <div>
+              <h3>Sign in to Focusora Cloud</h3>
+              <p class="muted small" style="margin-top:4px;margin-bottom:14px">
+                Connect your Google account to back up your streaks, level &amp; XP, focus statistics, and tasks across all your devices via Firebase.
+              </p>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <button class="btn primary" id="btn-google-login" style="display:inline-flex;align-items:center;gap:8px">
+              <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+                <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/>
+                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+              </svg>
               Sign in with Google
             </button>
+            <span class="muted small" id="auth-status-hint">Direct Firebase Cloud Sync</span>
           </div>
-          <div id="account-signed-in" hidden>
-            <div class="user-row">
-              <div class="user-avatar" id="user-avatar-initial">U</div>
-              <div>
-                <strong id="user-display-name">User</strong>
+          <p class="auth-error-msg" id="auth-error-msg" hidden></p>
+        </div>
+
+        <!-- Signed in state: Full Profile -->
+        <div id="account-signed-in" hidden>
+          <!-- Profile Card -->
+          <div class="card profile-header-card">
+            <div class="profile-hero">
+              <div class="profile-avatar-wrap">
+                <img id="user-avatar-img" class="user-avatar-img" alt="Profile" hidden />
+                <div class="user-avatar" id="user-avatar-initial">U</div>
+                <span class="status-indicator-dot online" title="Cloud Active"></span>
+              </div>
+              <div class="profile-meta">
+                <div class="profile-name-row">
+                  <h2 id="user-display-name">User</h2>
+                  <span class="badge cloud-badge" id="cloud-status-badge">🟢 Cloud Synced</span>
+                </div>
                 <span class="muted small block" id="user-email-addr">user@example.com</span>
+                <span class="user-uid-pill" id="user-uid-pill">UID: ...</span>
               </div>
             </div>
-            <button class="btn warn small" id="btn-google-logout">Sign out</button>
+
+            <!-- Gamification overview in profile -->
+            <div class="profile-stats-grid">
+              <div class="prof-stat">
+                <span class="prof-stat-val" id="profile-level">Lv 1</span>
+                <span class="prof-stat-lbl">Level</span>
+              </div>
+              <div class="prof-stat teal">
+                <span class="prof-stat-val" id="profile-xp">0</span>
+                <span class="prof-stat-lbl">Total XP</span>
+              </div>
+              <div class="prof-stat amber">
+                <span class="prof-stat-val" id="profile-coins">0 🪙</span>
+                <span class="prof-stat-lbl">Coins</span>
+              </div>
+              <div class="prof-stat">
+                <span class="prof-stat-val" id="profile-streak">0d 🔥</span>
+                <span class="prof-stat-lbl">Streak</span>
+              </div>
+            </div>
+
+            <!-- Profile actions -->
+            <div class="profile-actions-bar">
+              <button class="btn secondary small" id="btn-sync-now">
+                <span id="sync-spinner" class="sync-icon">🔄</span> Sync to Cloud Now
+              </button>
+              <button class="btn warn small" id="btn-google-logout">Sign out</button>
+            </div>
+            <p class="muted tiny" id="last-synced-text" style="margin-top:8px">Last synced: Just now</p>
           </div>
         </div>
 
         <div class="card">
-          <h3>Plan</h3>
+          <h3>Plan &amp; Membership</h3>
           <div class="plan-row">
             <div>
-              <strong>Free</strong>
-              <p class="muted small">Core timer, tasks, basic blocking, XP &amp; streaks, 7-day history.</p>
+              <strong>Free Plan</strong>
+              <p class="muted small">Core timer, tasks, site blocker, ambient soundscapes, XP &amp; streaks, 7-day history, Firebase cloud sync.</p>
             </div>
-            <span class="badge" id="plan-badge">Current plan</span>
+            <span class="badge" id="plan-badge">Active plan</span>
           </div>
           <div class="plan-row">
             <div>
-              <strong>Premium — ₹79/month</strong>
-              <p class="muted small">Notion sync, AI planning, advanced blocker schedules, full insights, adaptive music, detailed posture reports.</p>
+              <strong>Focusora Pro — ₹79/month</strong>
+              <p class="muted small">Notion 2-way sync, AI schedule optimizer, advanced blocker rules, unlimited history, adaptive focus soundscapes.</p>
             </div>
-            <button class="btn primary" disabled>Upgrade (coming soon)</button>
+            <button class="btn primary small" disabled>Upgrade (coming soon)</button>
           </div>
         </div>
       </section>
@@ -237,7 +295,7 @@
 
         <div class="card">
           <h3>What Focusora stores</h3>
-          <p class="muted small">In this local build, everything (tasks, sessions, XP, settings) stays in your browser's extension storage. Nothing is uploaded by default. Site blocking is based on domains <em>you choose</em> — not your full browsing history.</p>
+          <p class="muted small">Your data stays in your browser's local storage and syncs directly to your private Firebase account when signed in. Nothing is sold or tracked. Site blocking is based on domains <em>you choose</em> — not your browsing history.</p>
         </div>
 
         <div class="card">
@@ -274,6 +332,9 @@
     </main>
   </div>
 
+  <script src="../lib/firebase-app-compat.js"></script>
+  <script src="../lib/firebase-auth-compat.js"></script>
+  <script src="../lib/firebase-firestore-compat.js"></script>
   <script src="options.js" type="module"></script>
 </body>
 </html>

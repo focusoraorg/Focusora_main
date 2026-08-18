@@ -92,12 +92,18 @@ async function handleMessage(message) {
       return { ok: true, state };
     }
 
+    case "UPDATE_ACCOUNT": {
+      const state = await setState({ account: message.account });
+      return { ok: true, state };
+    }
+
     case "COMPLETE_ONBOARDING":
       return {
         ok: true,
         state: await setState({
           onboardingComplete: true,
-          settings: message.settings || {}
+          settings: message.settings || {},
+          ...(message.account ? { account: message.account } : {})
         })
       };
 

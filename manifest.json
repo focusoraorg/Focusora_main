@@ -4,13 +4,11 @@
   "short_name": "Focusora",
   "version": "1.0.0",
   "description": "Turn tasks into protected focus sessions. Calm, supportive distraction blocking, a Pomodoro timer, gamified progress, and personal insights.",
-
   "icons": {
     "16": "icons/icon128.png",
     "48": "icons/icon128.png",
     "128": "icons/icon128.png"
   },
-
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
@@ -20,23 +18,23 @@
     },
     "default_title": "Focusora"
   },
-
   "options_page": "options/options.html",
-
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
-
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }
   ],
-
   "permissions": [
     "storage",
     "alarms",
@@ -47,11 +45,9 @@
     "identity",
     "scripting"
   ],
-
   "host_permissions": [
     "<all_urls>"
   ],
-
   "web_accessible_resources": [
     {
       "resources": [
@@ -61,14 +57,22 @@
         "onboarding/*",
         "icons/*"
       ],
-      "matches": ["<all_urls>"]
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
-
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
-
+  "oauth2": {
+    "client_id": "29212107881-lhgo3fmcogdrualjlq3jsab20srmglvt.apps.googleusercontent.com",
+    "scopes": [
+      "openid",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
   "offline_enabled": true,
   "minimum_chrome_version": "116"
 }

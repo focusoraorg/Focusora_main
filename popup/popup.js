@@ -2,6 +2,7 @@
 import { levelForXp, xpForNextLevel } from "../lib/storage.js";
 import { SOUNDSCAPES } from "../lib/constants.js";
 import { playSoundscape, stopSoundscape, setVolume, getCurrentSoundscape } from "./sounds.js";
+import { initFirebase } from "../utils/firebase.js";
 
 const RING_CIRCUMFERENCE = 2 * Math.PI * 86; // r=86 in the SVG
 
@@ -432,6 +433,9 @@ el("add-task-form").addEventListener("submit", async (e) => {
 // Settings button
 el("settings-btn").addEventListener("click", () => chrome.runtime.openOptionsPage());
 
+// Level chip opens options / profile
+el("level-chip")?.addEventListener("click", () => chrome.runtime.openOptionsPage());
+
 // Dashboard button — opens options page (the built-in dashboard)
 el("dashboard-btn").addEventListener("click", () => chrome.runtime.openOptionsPage());
 
@@ -474,6 +478,8 @@ function startTicking() {
 // ---------------------------------------------------------------------------
 // Init
 // ---------------------------------------------------------------------------
+
+initFirebase();
 
 refresh().then(() => {
   initSoundscapeBar();

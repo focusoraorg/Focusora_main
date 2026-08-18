@@ -1,7 +1,13 @@
 // options/options.js — Focusora Dashboard controller
 import { xpForNextLevel, getWeeklyInsights } from "../lib/storage.js";
 import { ACHIEVEMENTS } from "../lib/constants.js";
-import { initFirebase, signInWithGoogle, signOut } from "../utils/firebase.js";
+import {
+  initFirebase,
+  signInWithGoogle,
+  signOut,
+  syncFullStateToFirestore,
+  fetchFullStateFromFirestore
+} from "../utils/firebase.js";
 
 let state = null;
 const el = (id) => document.getElementById(id);
@@ -328,6 +334,10 @@ function renderTasksSettings() {
 // Account settings
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Account & Profile settings
+// ---------------------------------------------------------------------------
+
 function renderAccountSettings() {
   const signedOut = el("account-signed-out");
   const signedIn = el("account-signed-in");
@@ -336,10 +346,29 @@ function renderAccountSettings() {
   if (user?.signedIn) {
     if (signedOut) signedOut.hidden = true;
     if (signedIn) signedIn.hidden = false;
-    if (el("user-display-name")) el("user-display-name").textContent = user.name || "User";
+
+    if (el("user-display-name")) el("user-display-name").textContent = user.name || "Focusora User";
     if (el("user-email-addr")) el("user-email-addr").textContent = user.email || "";
-    const initEl = el("user-avatar-initial");
-    if (initEl) initEl.textContent = (user.name || user.email || "U")[0].toUpperCase();
+    if (el("user-uid-pill")) el("user-uid-pill").textContent = user.uid ? `UID: ${user.uid}` : "";
+
+    const avatarImg = el("user-avatar-img");
+    const avatarInit = el("user-avatar-initial");
+
+    if (user.photoURL && avatarImg) {
+      avatarImg.src = user.photoURL;
+      avatarImg.hidden = false;
+      if (avatarInit) avatarInit.hidden = true;
+    } else if (avatarInit) {
+      avatarInit.textContent = (user.name || user.email || "U")[0].toUpperCase();
+      avatarInit.hidden = false;
+      if (avatarImg) avatarImg.hidden = true;
+    }
+
+    // Populate profile stat chips
+    if (el("profile-level")) el("profile-level").textContent = `Lv ${state.gamification?.level || 1}`;
+    if (el("profile-xp")) el("profile-xp").textContent = `${state.gamification?.xp || 0}`;
+    if (el("profile-coins")) el("profile-coins").textContent = `${state.gamification?.coins || 0} 🪙`;
+    if (el("profile-streak")) el("profile-streak").textContent = `${state.gamification?.currentStreakDays || 0}d 🔥`;
   } else {
     if (signedOut) signedOut.hidden = false;
     if (signedIn) signedIn.hidden = true;
@@ -435,41 +464,89 @@ el("notifications-enabled")?.addEventListener("change", (e) => {
   saveSettings({ notificationsEnabled: e.target.checked });
 });
 
-// Account buttons
+// ---------------------------------------------------------------------------
+// Account & Cloud Sync actions
+// ---------------------------------------------------------------------------
+
 el("btn-google-login")?.addEventListener("click", async () => {
+  const errEl = el("auth-error-msg");
+  if (errEl) { errEl.hidden = true; errEl.textContent = ""; }
+
+  const loginBtn = el("btn-google-login");
+  if (loginBtn) { loginBtn.disabled = true; loginBtn.style.opacity = "0.7"; }
+
   try {
     initFirebase();
     const user = await signInWithGoogle();
     if (user) {
-      await send("UPDATE_SETTINGS", {
-        settings: {
-          ...state.settings,
-          account: {
-            signedIn: true,
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-            plan: "free"
-          }
+      const res = await send("UPDATE_ACCOUNT", {
+        account: {
+          signedIn: true,
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName || (user.email ? user.email.split("@")[0] : "Focusora User"),
+          photoURL: user.photoURL || null,
+          plan: "free"
         }
       });
+      if (res?.ok) {
+        state = res.state;
+      }
       await refresh();
+      // Perform initial cloud backup
+      try {
+        await syncFullStateToFirestore(state);
+      } catch (syncErr) {
+        console.warn("[Focusora] Initial Firestore sync warning:", syncErr);
+      }
     }
   } catch (err) {
     console.warn("Sign-in notice:", err.message);
-    alert("Sign in result: " + err.message);
+    if (errEl) {
+      errEl.hidden = false;
+      errEl.textContent = err.message;
+    } else {
+      alert("Sign in notice: " + err.message);
+    }
+  } finally {
+    if (loginBtn) { loginBtn.disabled = false; loginBtn.style.opacity = "1"; }
   }
 });
 
 el("btn-google-logout")?.addEventListener("click", async () => {
   try { await signOut(); } catch (_) {}
-  await send("UPDATE_SETTINGS", {
-    settings: {
-      ...state.settings,
-      account: { signedIn: false, uid: null, email: null, name: null, plan: "free" }
-    }
+  const res = await send("UPDATE_ACCOUNT", {
+    account: { signedIn: false, uid: null, email: null, name: null, photoURL: null, plan: "free" }
   });
+  if (res?.ok) state = res.state;
   await refresh();
+});
+
+el("btn-sync-now")?.addEventListener("click", async () => {
+  const btn = el("btn-sync-now");
+  const lastSyncText = el("last-synced-text");
+  if (!btn) return;
+
+  btn.classList.add("syncing");
+  btn.disabled = true;
+
+  try {
+    initFirebase();
+    await syncFullStateToFirestore(state);
+    if (lastSyncText) {
+      lastSyncText.textContent = `Last synced: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
+    }
+  } catch (err) {
+    console.error("[Focusora] Sync error:", err);
+    if (lastSyncText) {
+      lastSyncText.textContent = `Sync failed: ${err.message}`;
+    }
+  } finally {
+    setTimeout(() => {
+      btn.classList.remove("syncing");
+      btn.disabled = false;
+    }, 600);
+  }
 });
 
 // Data management
@@ -509,4 +586,5 @@ chrome.storage.onChanged.addListener((changes, area) => {
 // Init
 // ---------------------------------------------------------------------------
 
+initFirebase();
 refresh();

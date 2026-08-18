@@ -431,24 +431,49 @@ body {
 
 .vol-slider {
   -webkit-appearance: none;
-  width: 64px;
-  height: 3px;
-  border-radius: 2px;
+  appearance: none;
+  width: 68px;
+  height: 4px;
+  border-radius: 999px;
   background: var(--line);
   outline: none;
   cursor: pointer;
+  vertical-align: middle;
+  transition: background 0.15s;
+}
+.vol-slider:hover {
+  background: var(--line-deep);
 }
 .vol-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
+  appearance: none;
   width: 13px;
   height: 13px;
   border-radius: 50%;
   background: var(--teal);
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  transition: transform 0.1s;
+  transition: transform 0.12s ease, background 0.12s;
+  border: 1.5px solid #fff;
 }
-.vol-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.vol-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--teal);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.12s ease, background 0.12s;
+  border: 1.5px solid #fff;
+}
+.vol-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: var(--teal-deep);
+}
+.vol-slider::-moz-range-thumb:hover {
+  transform: scale(1.25);
+  background: var(--teal-deep);
+}
 
 /* ─── Tasks ───────────────────────────────────────────── */
 
