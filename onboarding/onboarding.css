@@ -1,0 +1,282 @@
+:root {
+  --mist: #F0F5F2;
+  --surface: #FFFFFF;
+  --ink: #17242A;
+  --muted: #5B6B67;
+  --teal: #2B6E64;
+  --teal-deep: #1F534B;
+  --teal-soft: #E4EFEC;
+  --amber: #E3A23C;
+  --amber-soft: #FBEDD7;
+  --coral: #D9714E;
+  --line: #E1E8E4;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--mist);
+  color: var(--ink);
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.onboarding-wrap {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 24px 60px -30px rgba(23, 36, 42, 0.2);
+}
+
+/* Step dots */
+.step-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: all 0.3s;
+}
+.step-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--teal);
+}
+.step-dot.done {
+  background: var(--teal);
+  opacity: 0.4;
+}
+
+.step.hidden { display: none; }
+
+.step-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--teal-soft);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--teal-deep);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.logo-wrap { text-align: center; margin-bottom: 12px; }
+.brand-mark { color: var(--teal); font-size: 40px; }
+
+h1 { font-family: "Fraunces", Georgia, serif; font-weight: 560; font-size: 30px; text-align: center; margin: 0 0 8px; }
+h2 { font-family: "Fraunces", Georgia, serif; font-weight: 560; font-size: 24px; margin: 0 0 8px; }
+
+.brand-name { color: var(--teal); }
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.feat-icon { font-size: 20px; flex-shrink: 0; }
+.feature-item strong { font-size: 13px; font-weight: 700; display: block; margin-bottom: 2px; }
+.feature-item p { font-size: 12px; color: var(--muted); margin: 0; }
+
+.auth-card {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+  margin-bottom: 12px;
+}
+.google-btn:hover { border-color: var(--teal) !important; }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--line);
+}
+
+.auth-skip-hint { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.4; }
+
+.signed-in-badge { display: flex; align-items: center; gap: 12px; }
+.check-icon {
+  width: 36px; height: 36px;
+  background: var(--teal-soft);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--teal); flex-shrink: 0; font-weight: bold;
+}
+.user-greeting { font-size: 14px; font-weight: 700; color: var(--teal-deep); }
+.user-email { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.preset-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.preset-chip {
+  padding: 7px 14px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.preset-chip.selected {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal-deep);
+}
+
+.add-custom-row { display: flex; gap: 8px; margin-bottom: 24px; }
+.add-custom-row input {
+  flex: 1;
+  padding: 9px 12px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 13px;
+  font-family: inherit;
+}
+.add-custom-row input:focus { outline: 2px solid var(--teal); }
+
+.rhythm-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.rhythm-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.rhythm-option input[type="radio"] { display: none; }
+.rhythm-option.selected {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+}
+
+.rhythm-time {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--teal);
+  min-width: 60px;
+  text-align: center;
+}
+
+.rhythm-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.rhythm-desc { font-size: 12px; color: var(--muted); }
+
+.btn {
+  font-family: inherit;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--teal); color: white; width: 100%; }
+.btn.primary:hover { background: var(--teal-deep); }
+.btn.secondary { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+.btn.small { flex: none; padding: 9px 14px; font-size: 13px; border-radius: 10px; }
+
+.step-actions { display: flex; gap: 10px; }
+.step-actions .btn { flex: 1; }
+
+/* Auth error inline */
+.auth-error {
+  font-size: 12px;
+  color: var(--coral);
+  background: #FDF3EF;
+  border: 1px solid var(--coral);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.hidden { display: none; }
+
+/* Step 4 — notification permission */
+.notif-icon { font-size: 40px; text-align: center; margin-bottom: 10px; }
+
+.permission-card {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.perm-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.perm-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.perm-row strong { font-size: 13px; font-weight: 700; display: block; margin-bottom: 3px; }
+.perm-row p { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.4; }
+
+.perm-note { margin-bottom: 20px; text-align: center; }

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Focusora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- ═══ TOP BAR ═══ -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">◐</span>
+        <span class="brand-name">Focusora</span>
+      </div>
+      <div class="topbar-right">
+        <div class="level-chip" id="level-chip" title="Level &amp; XP">
+          <span id="level-num">Lv 1</span>
+        </div>
+        <button class="icon-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙</button>
+      </div>
+    </header>
+
+    <!-- XP progress bar -->
+    <div class="xp-bar-track" aria-hidden="true">
+      <div class="xp-bar-fill" id="xp-bar-fill"></div>
+    </div>
+
+    <!-- ═══ SESSION COMPLETE OVERLAY ═══ -->
+    <div class="complete-overlay" id="complete-overlay" hidden>
+      <div class="complete-confetti" id="complete-confetti" aria-hidden="true"></div>
+      <div class="complete-card">
+        <div class="complete-icon" aria-hidden="true">🎉</div>
+        <h2 class="complete-title">Session complete!</h2>
+        <div class="complete-rewards" id="complete-rewards">
+          <span class="reward-chip xp" id="complete-xp">+25 XP</span>
+          <span class="reward-chip coins" id="complete-coins">+5 🪙</span>
+        </div>
+        <p class="complete-sub" id="complete-sub">You focused for 25 minutes.</p>
+        <p class="complete-level" id="complete-level" hidden></p>
+        <div class="complete-actions">
+          <button class="btn secondary" id="btn-start-break">Take a break</button>
+          <button class="btn primary" id="btn-keep-going">Keep going</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TIMER ═══ -->
+    <main class="timer-section">
+      <!-- Session counter -->
+      <div class="session-counter" id="session-counter" hidden>
+        <span id="session-counter-text">Session 1 of 4</span>
+      </div>
+
+      <div class="ring-wrap" id="ring-wrap">
+        <svg viewBox="0 0 200 200" class="ring-svg" aria-hidden="true">
+          <circle class="ring-track" cx="100" cy="100" r="86" />
+          <circle class="ring-progress" id="ring-progress" cx="100" cy="100" r="86" />
+        </svg>
+        <div class="ring-center">
+          <span class="time" id="time-display" aria-live="polite" aria-atomic="true">25:00</span>
+          <span class="status" id="status-label">Ready to focus</span>
+        </div>
+      </div>
+
+      <!-- Duration chips — only shown when idle -->
+      <div class="duration-chips" id="duration-chips">
+        <button class="chip selected" data-min="25" aria-pressed="true">25 min</button>
+        <button class="chip" data-min="45" aria-pressed="false">45 min</button>
+        <button class="chip" data-min="15" aria-pressed="false">15 min</button>
+        <button class="chip chip-custom" id="chip-custom" aria-label="Custom duration">Custom</button>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls" id="controls">
+        <button class="btn primary" id="start-btn">Start focus session</button>
+      </div>
+
+      <!-- Distraction count -->
+      <p class="distraction-note" id="distraction-note" hidden aria-live="polite"></p>
+    </main>
+
+    <!-- ═══ SOUNDSCAPES ═══ -->
+    <div class="soundscape-bar" id="soundscape-bar">
+      <span class="soundscape-label">Ambient</span>
+      <div class="soundscape-btns" id="soundscape-btns" role="group" aria-label="Focus soundscapes">
+        <button class="sc-btn active" data-sc="off" title="Off" aria-pressed="true">🔇</button>
+        <button class="sc-btn" data-sc="rain" title="Rain" aria-pressed="false">🌧</button>
+        <button class="sc-btn" data-sc="forest" title="Forest" aria-pressed="false">🌲</button>
+        <button class="sc-btn" data-sc="cafe" title="Café" aria-pressed="false">☕</button>
+        <button class="sc-btn" data-sc="whitenoise" title="White noise" aria-pressed="false">〜</button>
+        <button class="sc-btn" data-sc="deep" title="Deep focus" aria-pressed="false">🎵</button>
+      </div>
+      <input class="vol-slider" id="vol-slider" type="range" min="0" max="100" value="50"
+             title="Volume" aria-label="Soundscape volume" />
+    </div>
+
+    <!-- ═══ TASKS ═══ -->
+    <section class="task-section">
+      <div class="task-section-head">
+        <h2>Today</h2>
+        <span class="task-count" id="task-count"></span>
+      </div>
+
+      <!-- Active task banner -->
+      <div class="active-task" id="active-task" hidden>
+        <span class="active-task-label">Focusing on</span>
+        <span class="active-task-title" id="active-task-title"></span>
+      </div>
+
+      <!-- Add task form -->
+      <form id="add-task-form" class="add-task-form">
+        <input id="add-task-input" type="text" placeholder="Add a task…" maxlength="140" autocomplete="off" />
+        <button type="submit" class="btn small" aria-label="Add task">Add</button>
+      </form>
+
+      <ul class="task-list" id="task-list" aria-label="Task list"></ul>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="bottombar">
+      <div class="stat" title="Focusora Coins">
+        <span class="stat-icon" aria-hidden="true">🪙</span>
+        <span id="coins-num">0</span>
+      </div>
+      <div class="stat" title="Current streak">
+        <span class="stat-icon" aria-hidden="true">🔥</span>
+        <span id="streak-num">0</span>
+        <span class="stat-unit">days</span>
+      </div>
+      <button class="link-btn" id="dashboard-btn">Dashboard →</button>
+    </footer>
+
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

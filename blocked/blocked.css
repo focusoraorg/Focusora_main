@@ -1,0 +1,244 @@
+:root {
+  --mist:      #F0F5F2;
+  --surface:   #FFFFFF;
+  --ink:       #17242A;
+  --muted:     #5B6B67;
+  --teal:      #2B6E64;
+  --teal-deep: #1F534B;
+  --teal-glow: rgba(43,110,100,0.20);
+  --amber:     #E3A23C;
+  --amber-soft:#FBF0DC;
+  --coral:     #D9714E;
+  --line:      #DCE5E1;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mist);
+  background-image:
+    radial-gradient(700px 500px at 15% 10%, rgba(43,110,100,0.07), transparent),
+    radial-gradient(600px 500px at 85% 90%, rgba(227,162,60,0.09), transparent);
+  color: var(--ink);
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 24px;
+}
+
+.wrap {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  padding: 48px 40px 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow:
+    0 32px 80px -30px rgba(23,36,42,0.22),
+    0 4px 20px rgba(43,110,100,0.08);
+  animation: wrapIn 0.45s cubic-bezier(0.34,1.2,0.64,1) both;
+}
+
+@keyframes wrapIn {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ─── Ring ────────────────────────────────────────────── */
+
+.ring {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  margin: 0 auto 22px;
+  filter: drop-shadow(0 6px 18px var(--teal-glow));
+}
+
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.ring-track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 8;
+}
+
+.ring-arc {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 540;
+  stroke-dashoffset: 160;
+  animation: breathe 4.4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { stroke-dashoffset: 160; opacity: 0.85; }
+  50%       { stroke-dashoffset: 340; opacity: 1; }
+}
+
+.ring-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: var(--amber);
+  animation: markPulse 4.4s ease-in-out infinite;
+}
+
+@keyframes markPulse {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; }
+}
+
+/* ─── Text ────────────────────────────────────────────── */
+
+.eyebrow {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 560;
+  font-size: 23px;
+  line-height: 1.35;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.site {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.site::before { content: "blocked · "; color: var(--coral); font-weight: 700; }
+
+/* ─── Task card ────────────────────────────────────────── */
+
+.task-card {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+.task-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.task-title { font-weight: 700; font-size: 14px; }
+
+/* ─── Timer card ────────────────────────────────────────── */
+
+.timer-card {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timer-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.timer-display {
+  font-size: 22px;
+  font-weight: 800;
+  font-feature-settings: "tnum" 1;
+  color: var(--teal-deep);
+  letter-spacing: -0.02em;
+}
+
+/* ─── Actions ─────────────────────────────────────────── */
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 12px 24px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active { transform: scale(0.97); }
+
+.primary {
+  background: linear-gradient(135deg, var(--teal), var(--teal-deep));
+  color: white;
+  box-shadow: 0 4px 14px var(--teal-glow);
+}
+.primary:hover {
+  box-shadow: 0 8px 24px var(--teal-glow);
+  background: linear-gradient(135deg, #329187, var(--teal));
+}
+
+.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ─── Notes + quote ───────────────────────────────────── */
+
+.attempt-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  padding: 0 8px;
+}
+
+.quote {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+  padding: 14px 16px 0;
+  border-top: 1px solid var(--line);
+  opacity: 0.75;
+}
+
+/* ─── Reduced motion ──────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-arc { animation: none; stroke-dashoffset: 250; }
+  .ring-mark { animation: none; }
+  .wrap { animation: none; }
+}

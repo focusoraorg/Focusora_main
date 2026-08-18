@@ -1,34 +1,74 @@
 {
   "manifest_version": 3,
-  "name": "Focusora",
-  "version": "1.0",
-  "description": "All-in-one productivity extension with Notion, Spotify, and distraction blocking.",
+  "name": "Focusora — Focus & Productivity",
+  "short_name": "Focusora",
+  "version": "1.0.0",
+  "description": "Turn tasks into protected focus sessions. Calm, supportive distraction blocking, a Pomodoro timer, gamified progress, and personal insights.",
+
+  "icons": {
+    "16": "icons/icon128.png",
+    "48": "icons/icon128.png",
+    "128": "icons/icon128.png"
+  },
+
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
-      "128": "images/icon128.png"
-    }
+      "16": "icons/icon128.png",
+      "48": "icons/icon128.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Focusora"
   },
+
+  "options_page": "options/options.html",
+
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
   "permissions": [
     "storage",
+    "alarms",
+    "notifications",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
     "tabs",
-    "activeTab",
+    "identity",
     "scripting"
   ],
+
   "host_permissions": [
-    "<all_urls>",
-    "https://api.notion.com/*"
+    "<all_urls>"
   ],
+
   "web_accessible_resources": [
     {
-      "resources": ["images/*"],
+      "resources": [
+        "blocked/blocked.html",
+        "blocked/blocked.css",
+        "blocked/blocked.js",
+        "onboarding/*",
+        "icons/*"
+      ],
       "matches": ["<all_urls>"]
     }
-  ]
-  
+  ],
 
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+
+  "offline_enabled": true,
+  "minimum_chrome_version": "116"
 }
-

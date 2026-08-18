@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Focusora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="onboarding.css" />
+  <!-- Firebase: add firebase-app-compat.js, firebase-auth-compat.js, firebase-firestore-compat.js
+       from your local lib/ folder once you have the SDK files downloaded.
+       MV3 extensions cannot load scripts from external CDN URLs. -->
+</head>
+<body>
+  <div class="onboarding-wrap">
+
+    <!-- Step indicator -->
+    <div class="step-dots" id="step-dots">
+      <div class="step-dot active" data-step="0"></div>
+      <div class="step-dot" data-step="1"></div>
+      <div class="step-dot" data-step="2"></div>
+      <div class="step-dot" data-step="3"></div>
+      <div class="step-dot" data-step="4"></div>
+    </div>
+
+    <!-- ── STEP 0: Welcome ── -->
+    <div class="step active" id="step-0">
+      <div class="logo-wrap">
+        <span class="brand-mark">◐</span>
+      </div>
+      <h1>Welcome to <span class="brand-name">Focusora</span></h1>
+      <p class="subtitle">Your calm, supportive focus companion.<br>Set up in 4 quick steps.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feat-icon">🎯</span>
+          <div>
+            <strong>Protect your attention</strong>
+            <p>Block distracting sites only during focus sessions</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">⏱️</span>
+          <div>
+            <strong>Pomodoro timer</strong>
+            <p>25-minute focus sessions with guided breaks</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">⚡</span>
+          <div>
+            <strong>Earn XP &amp; streaks</strong>
+            <p>Build momentum with rewards for meaningful work</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">📊</span>
+          <div>
+            <strong>Insights &amp; history</strong>
+            <p>Understand your focus patterns week over week</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn primary" id="btn-step-0-next">Get Started →</button>
+    </div>
+
+    <!-- ── STEP 1: Sign In ── -->
+    <div class="step hidden" id="step-1">
+      <div class="step-badge">Step 1 of 4</div>
+      <h2>Create your account</h2>
+      <p class="subtitle">Sign in to sync your sessions, streaks, and tasks across devices.<br>You can skip and use Focusora locally.</p>
+
+      <div class="auth-card" id="auth-card">
+        <div id="ob-signed-out">
+          <button class="btn google-btn" id="ob-google-btn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" width="18" />
+            Continue with Google
+          </button>
+          <p class="auth-error" id="auth-error" hidden></p>
+        </div>
+        <div id="ob-signed-in" class="hidden">
+          <div class="signed-in-badge">
+            <span class="check-icon">✓</span>
+            <div>
+              <div class="user-greeting" id="ob-user-name">Signed in!</div>
+              <div class="user-email" id="ob-user-email"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn secondary" id="btn-skip-auth">Use without account</button>
+        <button class="btn primary" id="btn-step-1-next">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Block List ── -->
+    <div class="step hidden" id="step-2">
+      <div class="step-badge">Step 2 of 4</div>
+      <h2>What distracts you?</h2>
+      <p class="subtitle">These sites will be blocked <strong>only during focus sessions</strong>.<br>You're always in control.</p>
+
+      <div class="preset-grid">
+        <button class="preset-chip selected" data-domain="youtube.com">📹 YouTube</button>
+        <button class="preset-chip selected" data-domain="instagram.com">📸 Instagram</button>
+        <button class="preset-chip selected" data-domain="twitter.com">🐦 Twitter / X</button>
+        <button class="preset-chip selected" data-domain="facebook.com">👥 Facebook</button>
+        <button class="preset-chip selected" data-domain="reddit.com">🗣 Reddit</button>
+        <button class="preset-chip selected" data-domain="netflix.com">🎬 Netflix</button>
+        <button class="preset-chip" data-domain="tiktok.com">🎵 TikTok</button>
+        <button class="preset-chip" data-domain="whatsapp.com">💬 WhatsApp Web</button>
+        <button class="preset-chip" data-domain="amazon.in">🛒 Amazon</button>
+        <button class="preset-chip" data-domain="hotstar.com">🎭 Hotstar</button>
+        <button class="preset-chip" data-domain="linkedin.com">💼 LinkedIn</button>
+        <button class="preset-chip" data-domain="snapchat.com">👻 Snapchat</button>
+      </div>
+
+      <div class="add-custom-row">
+        <input type="text" id="ob-custom-site" placeholder="Add a custom site, e.g. example.com" />
+        <button class="btn small" id="ob-add-custom-btn">Add</button>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn secondary" id="btn-step-2-back">← Back</button>
+        <button class="btn primary" id="btn-step-2-next">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Session Length ── -->
+    <div class="step hidden" id="step-3">
+      <div class="step-badge">Step 3 of 4</div>
+      <h2>Your focus rhythm</h2>
+      <p class="subtitle">How long do you usually focus before needing a break?</p>
+
+      <div class="rhythm-options">
+        <label class="rhythm-option selected" for="rhythm-25">
+          <input type="radio" name="rhythm" id="rhythm-25" value="25" checked />
+          <div class="rhythm-body">
+            <div class="rhythm-time">25 min</div>
+            <div class="rhythm-name">🍅 Classic Pomodoro</div>
+            <div class="rhythm-desc">25 min focus · 5 min break. Great for beginners and scattered days.</div>
+          </div>
+        </label>
+        <label class="rhythm-option" for="rhythm-50">
+          <input type="radio" name="rhythm" id="rhythm-50" value="50" />
+          <div class="rhythm-body">
+            <div class="rhythm-time">50 min</div>
+            <div class="rhythm-name">🧠 Deep Work</div>
+            <div class="rhythm-desc">50 min focus · 10 min break. For complex tasks needing deep concentration.</div>
+          </div>
+        </label>
+        <label class="rhythm-option" for="rhythm-15">
+          <input type="radio" name="rhythm" id="rhythm-15" value="15" />
+          <div class="rhythm-body">
+            <div class="rhythm-time">15 min</div>
+            <div class="rhythm-name">⚡ Quick Sprint</div>
+            <div class="rhythm-desc">15 min focus · 3 min break. Quick wins to build momentum.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn secondary" id="btn-step-3-back">← Back</button>
+        <button class="btn primary" id="btn-step-3-next">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: Notifications permission ── -->
+    <div class="step hidden" id="step-4">
+      <div class="step-badge">Step 4 of 4</div>
+      <div class="notif-icon" aria-hidden="true">🔔</div>
+      <h2>Stay on track</h2>
+      <p class="subtitle">Focusora sends a gentle notification when your session ends<br>and when it's time to get back to focus.</p>
+
+      <div class="permission-card" id="perm-card">
+        <div class="perm-row">
+          <span class="perm-icon">🔔</span>
+          <div>
+            <strong>Session notifications</strong>
+            <p>Session complete, break reminders, and streak updates.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="perm-note muted small" id="perm-status">Optional — Focusora works without notifications too.</p>
+
+      <div class="step-actions">
+        <button class="btn secondary" id="btn-step-4-back">← Back</button>
+        <button class="btn primary" id="btn-step-4-finish">🚀 Start Focusing!</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="onboarding.js"></script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Focusora Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,680&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="options.css" />
+  <!-- Firebase: add firebase-app-compat.js, firebase-auth-compat.js, firebase-firestore-compat.js
+       from your local lib/ folder once you have the SDK files downloaded.
+       MV3 extensions cannot load scripts from external CDN URLs. -->
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Sidebar nav -->
+    <aside class="nav">
+      <div class="nav-brand">
+        <span class="brand-mark">◐</span>
+        <span class="brand-name">Focusora</span>
+      </div>
+      <nav>
+        <button class="nav-item active" data-section="today">Today</button>
+        <button class="nav-item" data-section="history">History</button>
+        <button class="nav-item" data-section="focus">Focus &amp; blocking</button>
+        <button class="nav-item" data-section="tasks">Tasks &amp; Notion</button>
+        <button class="nav-item" data-section="achievements">Achievements</button>
+        <button class="nav-item" data-section="account">Account &amp; plan</button>
+        <button class="nav-item" data-section="privacy">Privacy &amp; data</button>
+        <button class="nav-item" data-section="about">About</button>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      <!-- ══════════ TODAY ══════════ -->
+      <section id="section-today" class="panel">
+        <h1>Today</h1>
+        <p class="lede">Your daily focus snapshot. Everything you do here syncs in real-time.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card teal">
+            <span class="stat-value" id="stat-minutes">0</span>
+            <span class="stat-label">Focus minutes</span>
+            <div class="stat-bar-track"><div class="stat-bar-fill" id="stat-minutes-bar"></div></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-sessions">0</span>
+            <span class="stat-label">Sessions completed</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-tasks">0</span>
+            <span class="stat-label">Tasks completed</span>
+          </div>
+          <div class="stat-card amber">
+            <span class="stat-value" id="stat-distractions">0</span>
+            <span class="stat-label">Distraction nudges</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Level &amp; streak</h3>
+          <div class="level-row">
+            <div>
+              <span class="big-num" id="today-level">Lv 1</span>
+              <span class="muted" id="today-xp">0 XP</span>
+            </div>
+            <div class="xp-track"><div class="xp-fill" id="today-xp-fill"></div></div>
+          </div>
+          <p class="muted small" id="today-streak">Current streak: 0 days · Longest: 0 days</p>
+          <div class="coin-row">
+            <span>🪙</span>
+            <span class="coin-value" id="today-coins">0</span>
+            <span class="muted small">Focusora Coins</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Open tasks <span class="card-badge" id="today-task-badge">0</span></h3>
+          <ul class="simple-list" id="today-task-list"></ul>
+        </div>
+      </section>
+
+      <!-- ══════════ HISTORY ══════════ -->
+      <section id="section-history" class="panel" hidden>
+        <h1>History</h1>
+        <p class="lede">Your focus activity over the last 7 days.</p>
+
+        <div class="card">
+          <h3>Focus minutes per day</h3>
+          <div class="chart-wrap">
+            <canvas id="focus-chart" width="560" height="180" aria-label="7-day focus chart"></canvas>
+          </div>
+          <div class="chart-labels" id="chart-labels"></div>
+        </div>
+
+        <div class="card">
+          <h3>Week summary</h3>
+          <div class="week-grid" id="week-grid">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>All-time</h3>
+          <div class="alltime-grid" id="alltime-grid">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ FOCUS & BLOCKING ══════════ -->
+      <section id="section-focus" class="panel" hidden>
+        <h1>Focus &amp; blocking</h1>
+        <p class="lede">Blocking is strongest during an intentional focus session. You're always in control.</p>
+
+        <div class="card">
+          <h3>Session lengths</h3>
+          <div class="field-row">
+            <label>Focus session (min)<input type="number" id="focus-minutes" min="5" max="180" /></label>
+            <label>Short break (min)<input type="number" id="short-break-minutes" min="1" max="60" /></label>
+          </div>
+          <div class="field-row">
+            <label>Long break (min)<input type="number" id="long-break-minutes" min="1" max="90" /></label>
+            <label>Sessions until long break<input type="number" id="sessions-until-long" min="1" max="12" /></label>
+          </div>
+          <div class="field-row">
+            <label>Daily focus goal (min)<input type="number" id="daily-goal-minutes" min="10" max="600" /></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Blocked sites</h3>
+          <p class="muted small">Blocked during focus sessions. Add any domain you find distracting.</p>
+          <form id="block-add-form" class="inline-form">
+            <input type="text" id="block-add-input" placeholder="example.com" />
+            <button type="submit" class="btn small">Add</button>
+          </form>
+          <div class="chip-list" id="block-list"></div>
+        </div>
+
+        <div class="card">
+          <h3>Allow list</h3>
+          <p class="muted small">Sites never blocked, even if they match your block list.</p>
+          <form id="allow-add-form" class="inline-form">
+            <input type="text" id="allow-add-input" placeholder="docs.example.com" />
+            <button type="submit" class="btn small">Add</button>
+          </form>
+          <div class="chip-list" id="allow-list"></div>
+        </div>
+
+        <div class="card">
+          <h3>Blocking behavior</h3>
+          <label class="switch-row">
+            <span>
+              <strong>Block outside focus sessions too</strong>
+              <span class="muted small block">Off by default — Focusora is supportive, not an always-on blocker.</span>
+            </span>
+            <input type="checkbox" id="block-outside-focus" />
+          </label>
+          <label class="switch-row">
+            <span><strong>Session notifications</strong></span>
+            <input type="checkbox" id="notifications-enabled" />
+          </label>
+        </div>
+      </section>
+
+      <!-- ══════════ TASKS & NOTION ══════════ -->
+      <section id="section-tasks" class="panel" hidden>
+        <h1>Tasks &amp; Notion</h1>
+        <p class="lede">Manual tasks work out of the box. Notion sync is a Premium feature.</p>
+
+        <div class="card">
+          <h3>Notion</h3>
+          <p class="muted small">Connect one task database in your Notion workspace via OAuth. Reads tasks in; marks them complete when you finish them in Focusora.</p>
+          <button class="btn secondary" id="notion-connect-btn" disabled>Connect Notion</button>
+          <p class="muted small" id="notion-note" style="margin-top:8px">Requires Focusora Premium &amp; the backend OAuth client.</p>
+        </div>
+      </section>
+
+      <!-- ══════════ ACHIEVEMENTS ══════════ -->
+      <section id="section-achievements" class="panel" hidden>
+        <h1>Achievements</h1>
+        <p class="lede">Earned through meaningful work, not endless app use.</p>
+        <div class="achievement-grid" id="achievement-grid">
+          <!-- filled by JS -->
+        </div>
+      </section>
+
+      <!-- ══════════ ACCOUNT & PLAN ══════════ -->
+      <section id="section-account" class="panel" hidden>
+        <h1>Account &amp; plan</h1>
+
+        <div class="card">
+          <h3>Account &amp; Cloud Sync</h3>
+          <div id="account-signed-out">
+            <p class="muted small" style="margin-bottom:12px">Sign in to sync focus sessions, tasks, XP, and streak across devices.</p>
+            <button class="btn secondary" id="btn-google-login">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" width="16" style="vertical-align:middle;margin-right:6px" />
+              Sign in with Google
+            </button>
+          </div>
+          <div id="account-signed-in" hidden>
+            <div class="user-row">
+              <div class="user-avatar" id="user-avatar-initial">U</div>
+              <div>
+                <strong id="user-display-name">User</strong>
+                <span class="muted small block" id="user-email-addr">user@example.com</span>
+              </div>
+            </div>
+            <button class="btn warn small" id="btn-google-logout">Sign out</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Plan</h3>
+          <div class="plan-row">
+            <div>
+              <strong>Free</strong>
+              <p class="muted small">Core timer, tasks, basic blocking, XP &amp; streaks, 7-day history.</p>
+            </div>
+            <span class="badge" id="plan-badge">Current plan</span>
+          </div>
+          <div class="plan-row">
+            <div>
+              <strong>Premium — ₹79/month</strong>
+              <p class="muted small">Notion sync, AI planning, advanced blocker schedules, full insights, adaptive music, detailed posture reports.</p>
+            </div>
+            <button class="btn primary" disabled>Upgrade (coming soon)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ PRIVACY & DATA ══════════ -->
+      <section id="section-privacy" class="panel" hidden>
+        <h1>Privacy &amp; data</h1>
+
+        <div class="card">
+          <h3>What Focusora stores</h3>
+          <p class="muted small">In this local build, everything (tasks, sessions, XP, settings) stays in your browser's extension storage. Nothing is uploaded by default. Site blocking is based on domains <em>you choose</em> — not your full browsing history.</p>
+        </div>
+
+        <div class="card">
+          <h3>Your data</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn secondary" id="export-btn">Export my data (JSON)</button>
+            <button class="btn warn" id="clear-btn">Delete all local data</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ ABOUT ══════════ -->
+      <section id="section-about" class="panel" hidden>
+        <h1>About Focusora</h1>
+        <p class="lede">"You got distracted. That's okay — let's get back on track."</p>
+        <div class="card">
+          <h3>Version <span id="version-num">1.0.0</span></h3>
+          <p class="muted small">Focusora is a supportive productivity tool, not a surveillance or medical product. It will never claim to read your mind, diagnose health conditions, or provide medical advice.</p>
+          <p class="muted small" style="margin-top:8px">Privacy policy, terms of service, and support are available on <a href="https://focusora.app" target="_blank" rel="noopener">focusora.app</a>.</p>
+        </div>
+        <div class="card">
+          <h3>Pillars</h3>
+          <div class="pillars-grid">
+            <div class="pillar"><span>🎯</span><strong>Plan</strong><p>Tasks &amp; AI daily planning</p></div>
+            <div class="pillar"><span>🛡</span><strong>Protect</strong><p>Intentional distraction blocking</p></div>
+            <div class="pillar"><span>⏱</span><strong>Focus</strong><p>Pomodoro sessions &amp; music</p></div>
+            <div class="pillar"><span>📊</span><strong>Understand</strong><p>Insights &amp; weekly trends</p></div>
+            <div class="pillar"><span>🌱</span><strong>Wellbeing</strong><p>Breaks &amp; healthy routines</p></div>
+            <div class="pillar"><span>⚡</span><strong>Motivate</strong><p>XP, levels &amp; rewards</p></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

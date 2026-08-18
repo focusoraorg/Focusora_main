@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Back to focus — Focusora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="blocked.css" />
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Animated ring with brand mark -->
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <circle class="ring-track" cx="100" cy="100" r="86" />
+        <circle class="ring-arc" cx="100" cy="100" r="86" id="ring-arc" />
+      </svg>
+      <span class="ring-mark">◐</span>
+    </div>
+
+    <p class="eyebrow">focus protected</p>
+    <h1>You got distracted.<br>That's okay — let's get back on track.</h1>
+
+    <!-- Blocked site name -->
+    <p class="site" id="site-line"></p>
+
+    <!-- Active task reminder -->
+    <div class="task-card" id="task-card" hidden>
+      <span class="task-label">Right now you're working on</span>
+      <span class="task-title" id="task-title"></span>
+    </div>
+
+    <!-- Session timer countdown -->
+    <div class="timer-card" id="timer-card" hidden>
+      <span class="timer-label">Focus session ends in</span>
+      <span class="timer-display" id="timer-display">—:——</span>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+      <button id="back-btn" class="primary">Back to focus</button>
+      <button id="options-btn" class="ghost">Open Focusora</button>
+    </div>
+
+    <!-- Distraction count note -->
+    <p class="attempt-note" id="attempt-note"></p>
+
+    <!-- Rotating motivational quote -->
+    <p class="quote" id="quote-text"></p>
+
+  </main>
+  <script src="blocked.js"></script>
+</body>
+</html>
